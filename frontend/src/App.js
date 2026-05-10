@@ -5,7 +5,7 @@ import {
   Line,
   XAxis,
   YAxis,
- Tooltip,
+  Tooltip,
   CartesianGrid,
   ResponsiveContainer,
   PieChart,
@@ -22,15 +22,24 @@ function App() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   // =========================
+  // BACKEND URL
+  // =========================
+
+  const API_URL = "https://loglens-w9cw.onrender.com";
+
+  // =========================
   // LOAD ATTACKS
   // =========================
 
   const loadAttacks = () => {
 
-    fetch("http://127.0.0.1:5000/attacks")
+    fetch(`${API_URL}/attacks`)
       .then((res) => res.json())
       .then((data) => {
         setAttacks(data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
 
   };
@@ -66,7 +75,7 @@ function App() {
 
     formData.append("file", selectedFile);
 
-    await fetch("http://127.0.0.1:5000/upload", {
+    await fetch(`${API_URL}/upload`, {
       method: "POST",
       body: formData
     });
@@ -83,6 +92,8 @@ function App() {
   const hourlyCounts = {};
 
   attacks.forEach((attack) => {
+
+    if (!attack.timestamp) return;
 
     const hour = attack.timestamp.split(":")[1];
 
@@ -246,7 +257,7 @@ function App() {
         <button
           onClick={async () => {
 
-            await fetch("http://127.0.0.1:5000/demo");
+            await fetch(`${API_URL}/demo`);
 
             alert("Demo log loaded!");
 
@@ -271,7 +282,7 @@ function App() {
         {/* ========================= */}
 
         <a
-          href="http://127.0.0.1:5000/export"
+          href={`${API_URL}/export`}
           target="_blank"
           rel="noreferrer"
         >
