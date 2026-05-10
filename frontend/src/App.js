@@ -22,24 +22,15 @@ function App() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   // =========================
-  // BACKEND URL
-  // =========================
-
-  const API_URL = "https://loglens-w9cw.onrender.com";
-
-  // =========================
   // LOAD ATTACKS
   // =========================
 
   const loadAttacks = () => {
 
-    fetch(`${API_URL}/attacks`)
+    fetch("http://127.0.0.1:5000/attacks")
       .then((res) => res.json())
       .then((data) => {
         setAttacks(data);
-      })
-      .catch((error) => {
-        console.log(error);
       });
 
   };
@@ -75,7 +66,7 @@ function App() {
 
     formData.append("file", selectedFile);
 
-    await fetch(`${API_URL}/upload`, {
+    await fetch("http://127.0.0.1:5000/upload", {
       method: "POST",
       body: formData
     });
@@ -92,8 +83,6 @@ function App() {
   const hourlyCounts = {};
 
   attacks.forEach((attack) => {
-
-    if (!attack.timestamp) return;
 
     const hour = attack.timestamp.split(":")[1];
 
@@ -250,14 +239,12 @@ function App() {
           Analyze Logs
         </button>
 
-        {/* ========================= */}
-        {/* LOAD DEMO LOG BUTTON */}
-        {/* ========================= */}
+        {/* DEMO BUTTON */}
 
         <button
           onClick={async () => {
 
-            await fetch(`${API_URL}/demo`);
+            await fetch("http://127.0.0.1:5000/demo");
 
             alert("Demo log loaded!");
 
@@ -277,12 +264,10 @@ function App() {
           Load Demo Log
         </button>
 
-        {/* ========================= */}
         {/* EXPORT PDF */}
-        {/* ========================= */}
 
         <a
-          href={`${API_URL}/export`}
+          href="http://127.0.0.1:5000/export"
           target="_blank"
           rel="noreferrer"
         >
@@ -388,9 +373,7 @@ function App() {
 
       </div>
 
-      {/* ========================= */}
       {/* COUNTRY ANALYTICS */}
-      {/* ========================= */}
 
       <div style={sectionStyle}>
 
@@ -419,9 +402,7 @@ function App() {
 
       </div>
 
-      {/* ========================= */}
       {/* TOP ATTACKERS */}
-      {/* ========================= */}
 
       <div style={sectionStyle}>
 
@@ -469,9 +450,7 @@ function App() {
 
       </div>
 
-      {/* ========================= */}
       {/* ATTACK LOGS */}
-      {/* ========================= */}
 
       <div style={{ marginTop: "30px" }}>
 
