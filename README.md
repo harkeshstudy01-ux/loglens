@@ -1,136 +1,96 @@
-# 🚨 LogLens – Security Log Analysis & SIEM Lite
+# 🚨 LogLens - Security Log Analyzer
 
-## 📖 Introduction
+## About the Project
 
-Modern web servers generate thousands or even millions of log entries every day.  
-Hidden inside these logs can be attack attempts such as SQL Injection, XSS, brute force login attempts, and directory traversal attacks.
+LogLens is a simple SIEM-lite security project made for analyzing Apache and Nginx server logs.
 
-Analyzing these logs manually is difficult and time-consuming.
+Normally, web server logs contain thousands of lines, and it becomes very difficult for system administrators to manually find suspicious activities. This project helps automate that process.
 
-**LogLens** is a lightweight SIEM-like (Security Information and Event Management) tool built to solve this problem.  
-The system automatically parses Apache/Nginx logs, detects suspicious activity using regex-based attack signatures, and visualizes the results through an interactive dashboard.
+The system reads uploaded log files, detects possible cyber attacks using regex patterns, and shows the results on a dashboard with charts and analytics.
 
-This project was developed as a Security Software Engineering internship project focused on:
-- Log parsing
-- Threat detection
-- Security analytics
-- Dashboard visualization
-- Backend optimization
+This project was built as part of a Security Software Engineering Internship.
 
 ---
 
-# 🎯 Project Goals
+# Main Features
 
-The main objective of LogLens is to help system administrators and security analysts quickly answer:
+## Log Parsing
 
-- Who is attacking the server?
-- What type of attack is being used?
-- When did the attack happen?
-- How severe is the attack?
-- Which countries are attacks coming from?
+The parser reads Apache/Nginx log files and extracts important details like:
 
----
+* IP Address
+* Timestamp
+* HTTP Method
+* Request Path
+* Status Code
+* User Agent
 
-# ⚡ Core Features
-
-## 🔍 Log Parser Engine
-
-The parser supports Apache and Nginx Common Log Format (CLF).
-
-It extracts important fields from raw logs including:
-
-- IP Address
-- Timestamp
-- HTTP Method
-- Request Path
-- Status Code
-- Referrer
-- User Agent
-
-The parser processes logs line-by-line for efficient handling of large files.
+Regex is used to convert raw logs into structured JSON data.
 
 ---
 
-## 🛡️ Threat Detection Engine
+## Attack Detection
 
-LogLens uses regex-based signatures to detect multiple types of web attacks.
+The system can detect different types of attacks such as:
 
-### Supported Attack Types
+* SQL Injection
+* XSS Attacks
+* Directory Traversal
+* Command Injection
+* File Inclusion
+* Brute Force Attempts
+* Scanner Bots
 
-- SQL Injection (SQLi)
-- Cross Site Scripting (XSS)
-- Directory Traversal
-- Command Injection
-- File Inclusion
-- Remote Code Execution (RCE)
-- SSRF (Server-Side Request Forgery)
-- Brute Force Login Attempts
-- Scanner/Bot Detection
+Each detected attack is tagged with:
 
-Each detected attack is automatically tagged with:
-- Attack type
-- Severity level
-- Source IP
-- Timestamp
-- Request path
+* Attack Type
+* Severity
+* Source IP
+* Time
 
 ---
 
-# 📊 Dashboard & Visualization
+# Dashboard
 
-The frontend dashboard provides real-time attack analytics using React.js and Recharts.
+The React dashboard shows:
 
-### Dashboard Features
-
-- 📈 Attack Timeline Graph
-- 🥧 Attack Distribution Pie Chart
-- 🌍 Country-wise Attack Analytics
-- 🧑‍💻 Top Attackers Table
-- 🚨 Severity-based Highlighting
-- 🔄 Live Auto Refresh
-- 📄 PDF Report Export
+* Attack Timeline Graph
+* Attack Distribution Pie Chart
+* Country-wise Attack Analysis
+* Top Attackers Table
+* PDF Report Export
+* Auto Refresh
+* Demo Log Loader
 
 ---
 
-# ⚙️ Backend Features
-
-The backend is built using Flask and includes:
-
-- REST API architecture
-- Background log processing
-- Async upload handling
-- File upload support
-- JSONL-based attack storage
-- Job status tracking
-- PDF report generation
-
----
-
-# 🧰 Technologies Used
+# Technologies Used
 
 ## Frontend
-- React.js
-- Recharts
+
+* React.js
+* Recharts
 
 ## Backend
-- Python
-- Flask
-- Regular Expressions (Regex)
 
-## Additional Libraries
-- flask-cors
-- requests
-- reportlab
+* Flask
+* Python
+* Regex
+
+## Libraries
+
+* flask-cors
+* reportlab
+* requests
 
 ---
 
-# 📂 Project Structure
+# Project Structure
 
 ```bash
 LOGLENS/
 │
 ├── api.py
-├── main.py
 ├── requirements.txt
 ├── README.md
 │
@@ -156,17 +116,17 @@ LOGLENS/
 
 ---
 
-# 🚀 Installation & Setup
+# How to Run the Project
 
-## 1️⃣ Clone Repository
+## 1. Clone the Repository
 
 ```bash
-git clone YOUR_GITHUB_REPO_LINK
+git clone https://github.com/harkeshstudy01-ux/loglens.git
 ```
 
 ---
 
-## 2️⃣ Install Python Dependencies
+## 2. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -174,7 +134,7 @@ pip install -r requirements.txt
 
 ---
 
-## 3️⃣ Start Backend Server
+## 3. Start Backend Server
 
 ```bash
 python api.py
@@ -188,10 +148,11 @@ http://127.0.0.1:5000
 
 ---
 
-## 4️⃣ Start Frontend
+## 4. Start Frontend
 
 ```bash
 cd frontend
+npm install
 npm start
 ```
 
@@ -203,59 +164,43 @@ http://localhost:3000
 
 ---
 
-# 📌 How LogLens Works
+# Live Links
 
-### Step 1
-User uploads a log file.
+## Backend
 
-### Step 2
-Backend parses logs line-by-line.
+https://loglens-w9cw.onrender.com
 
-### Step 3
-Threat detection engine scans requests using attack signatures.
+## Frontend
 
-### Step 4
-Detected attacks are stored in JSONL format.
-
-### Step 5
-Dashboard visualizes attack statistics and analytics.
+npx plugins add vercel/vercel-plugin
 
 ---
 
-# 📈 Example Detection Workflow
+# Performance Handling
 
-```txt
-Raw Log
-   ↓
-Parser Engine
-   ↓
-Structured JSON
-   ↓
-Threat Detection
-   ↓
-Attack Classification
-   ↓
-Dashboard Visualization
-```
+To avoid loading huge log files into memory:
+
+* Logs are processed line-by-line
+* Background processing is used
+* Auto refresh updates the dashboard every few seconds
+
+This makes the application more efficient for large files.
 
 ---
 
-# 🔮 Future Improvements
+# Future Improvements
 
-Some planned improvements for future versions:
+Some future upgrades that can be added:
 
-- Real GeoIP database integration
-- Interactive world attack map
-- AI-based anomaly detection
-- WebSocket real-time streaming
-- Docker container deployment
-- User authentication system
-- Cloud deployment support
+* Real GeoIP integration
+* World attack map
+* AI-based anomaly detection
+* Docker deployment
+* Authentication system
+* Real-time WebSocket updates
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 Developed by Harkesh
-
-Security Software Engineering Project
