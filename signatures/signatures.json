@@ -1,0 +1,22 @@
+{
+  "sql_injection": [
+    "' or 1=1",
+    "union select",
+    "drop table"
+  ],
+
+  "xss": [
+    "<script>",
+    "javascript:",
+    "alert("
+  ],
+
+  "dir_traversal": [
+    "../",
+    "..\\",
+    "/etc/passwd",
+    "boot.ini",
+    "win.ini"
+  ]
+}
+
