@@ -5,11 +5,11 @@ import {
   Line,
   XAxis,
   YAxis,
-  Tooltip,
+ Tooltip,
   CartesianGrid,
   ResponsiveContainer,
   PieChart,
- Pie,
+  Pie,
   Cell,
   Legend,
   BarChart,
@@ -238,6 +238,37 @@ function App() {
         >
           Analyze Logs
         </button>
+
+        {/* ========================= */}
+        {/* LOAD DEMO LOG BUTTON */}
+        {/* ========================= */}
+
+        <button
+          onClick={async () => {
+
+            await fetch("http://127.0.0.1:5000/demo");
+
+            alert("Demo log loaded!");
+
+            loadAttacks();
+
+          }}
+          style={{
+            marginLeft: "15px",
+            padding: "10px 20px",
+            background: "#3b82f6",
+            border: "none",
+            borderRadius: "5px",
+            color: "white",
+            cursor: "pointer"
+          }}
+        >
+          Load Demo Log
+        </button>
+
+        {/* ========================= */}
+        {/* EXPORT PDF */}
+        {/* ========================= */}
 
         <a
           href="http://127.0.0.1:5000/export"

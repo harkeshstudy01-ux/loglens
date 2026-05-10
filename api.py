@@ -132,6 +132,33 @@ def upload_file():
     })
 
 # =========================
+# DEMO LOG LOADER
+# =========================
+
+@app.route("/demo", methods=["GET"])
+def load_demo():
+
+    demo_file = "logs/sample.log"
+
+    job_id = str(uuid.uuid4())
+
+    jobs[job_id] = {
+        "status": "queued"
+    }
+
+    thread = threading.Thread(
+        target=process_logs,
+        args=(demo_file, job_id)
+    )
+
+    thread.start()
+
+    return jsonify({
+        "message": "Demo log loaded",
+        "job_id": job_id
+    })
+
+# =========================
 # JOB STATUS
 # =========================
 
