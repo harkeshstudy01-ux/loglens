@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+frontend/node_modules/
+uploads/
+parser/__pycache__/
+detector/__pycache__/
+logs/output.jsonl
